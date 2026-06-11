@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginAdmin from './pages/LoginAdmin';
-import DashboardLayout from './components/DashboardLayout';
+import DashboardLayout from './Components/DashboardLayout';
 import InventarioAdmin from './pages/InventarioAdmin';
 import PedidosAdmin from './pages/PedidosAdmin';
 import SuscripcionesAdmin from './pages/SuscripcionesAdmin';
