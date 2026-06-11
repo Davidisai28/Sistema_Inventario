@@ -277,7 +277,7 @@ export default function InventarioAdmin() {
 
                                 <div className="panel-product-body">
                                     <div className="panel-product-head">
-                                        <div>
+                                        <div className="panel-product-info">
                                             <div className="panel-product-name">{prod.nombre}</div>
                                             {prod.descripcion && (
                                                 <div className="panel-product-desc">{prod.descripcion}</div>

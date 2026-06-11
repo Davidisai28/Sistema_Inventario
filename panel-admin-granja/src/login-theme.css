@@ -4,24 +4,33 @@
 
 .login-wrapper {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   width: 100%;
   background-color: var(--color-background);
 }
 
+@media (min-width: 1024px) {
+  .login-wrapper {
+    flex-direction: row;
+  }
+}
+
 /* ---- Panel decorativo izquierdo ---- */
 .login-left {
-  display: none; /* Oculto en móviles */
+  display: flex;
+  flex-direction: column;
   position: relative;
   overflow: hidden;
   color: white;
-  padding: 3rem;
+  padding: 3rem 1rem;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 1024px) {
   .login-left {
-    display: flex;
-    flex-direction: column;
+    padding: 3rem;
     flex: 1;
   }
 }
@@ -69,8 +78,8 @@
 
 /* Ilustración central del huevo */
 .login-egg-ring {
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
   border-radius: 50%;
   background-color: rgb(255 255 255 / 10%);
   backdrop-filter: blur(4px);
@@ -84,6 +93,12 @@
   .login-egg-ring {
     width: 12rem;
     height: 12rem;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .login-egg-ring {
+    width: 10rem;
+    height: 10rem;
   }
 }
 
@@ -124,15 +139,24 @@
 
 .login-stats {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 2.5rem;
-  padding: 1.5rem;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
   background-color: rgb(0 0 0 / 15%);
   border-radius: var(--radius-xl);
   backdrop-filter: blur(8px);
   border: 1px solid rgb(255 255 255 / 10%);
+}
+
+@media (min-width: 1024px) {
+  .login-stats {
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+  }
 }
 
 .login-stat-value {

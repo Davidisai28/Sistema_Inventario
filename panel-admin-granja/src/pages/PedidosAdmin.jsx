@@ -183,7 +183,7 @@ export default function PedidosAdmin() {
                         onChange={(e) => setBusqueda(e.target.value)}
                     />
                 </div>
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0 }}>
                     <button 
                         className="panel-filter-btn" 
                         style={{ backgroundColor: filtro === 'activos' ? 'var(--color-primary)' : '', color: filtro === 'activos' ? 'var(--color-primary-foreground)' : '' }}
@@ -231,13 +231,15 @@ export default function PedidosAdmin() {
 
                                 {/* Info */}
                                 <div className="panel-product-body">
-                                    <div className="panel-product-head" style={{ alignItems: 'center', gap: '10px', justifyContent: 'flex-start' }}>
-                                        <div className="panel-product-name">{pedido.codigo_orden}</div>
-                                        <span style={{ padding: '2px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', backgroundColor: estiloBadge.bg, color: estiloBadge.color, letterSpacing: '0.5px' }}>
-                                            {pedido.estado.replace('_', ' ')}
-                                        </span>
+                                    <div className="panel-product-head" style={{ alignItems: 'flex-start', gap: '10px', flexWrap: 'wrap' }}>
+                                        <div className="panel-product-info" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                                            <div className="panel-product-name">{pedido.codigo_orden}</div>
+                                            <span style={{ padding: '2px 10px', borderRadius: '12px', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', backgroundColor: estiloBadge.bg, color: estiloBadge.color, letterSpacing: '0.5px', whiteSpace: 'nowrap' }}>
+                                                {pedido.estado.replace('_', ' ')}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="panel-product-desc" style={{ maxWidth: 'none' }}>
+                                    <div className="panel-product-desc" style={{ maxWidth: 'none', marginTop: '0.25rem' }}>
                                         {pedido.clientes?.nombre_completo || 'Cliente Eliminado'}
                                         {pedido.clientes?.telefono && ` · ${pedido.clientes.telefono}`}
                                     </div>

@@ -300,13 +300,13 @@ export default function ProduccionDiaria() {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1.5rem' }}>
                                 {propuestaEditable.filter(linea => linea.paquetes_sugeridos > 0 || linea.paquetes_finales > 0).map((linea) => (
                                     <div className="panel-product" key={linea.id} style={{ padding: '0.75rem 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.125rem' }}>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.125rem', flex: 1, minWidth: 0, paddingRight: '0.5rem' }}>
                                             <div className="panel-product-name">{linea.nombre}</div>
-                                            <div style={{ fontSize: '0.75rem', color: 'var(--color-muted-foreground)' }}>
+                                            <div style={{ fontSize: '0.75rem', color: 'var(--color-muted-foreground)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                                 Stock: {linea.stock_disponible} · Sugerido: {linea.paquetes_sugeridos}
                                             </div>
                                         </div>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
                                             <span style={{ fontSize: '0.75rem', color: 'var(--color-muted-foreground)', fontWeight: 600 }}>Cant:</span>
                                             <input
                                                 type="number"
@@ -329,8 +329,8 @@ export default function ProduccionDiaria() {
                                 backgroundColor: hayNegativos ? 'var(--color-destructive)' : 'var(--color-warning)',
                                 color: hayNegativos ? 'var(--color-destructive-foreground)' : 'var(--color-warning-foreground)'
                             }}>
-                                <strong style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.875rem' }}>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="12" rx="8" ry="10"/></svg>
+                                <strong style={{ display: 'flex', alignItems: 'flex-start', gap: '6px', fontSize: '0.875rem' }}>
+                                    <svg style={{ flexShrink: 0, marginTop: '2px' }} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="12" rx="8" ry="10"/></svg>
                                     Sobrantes Reales (Se quedan para mañana):
                                 </strong>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.5rem', fontWeight: 700, fontSize: '0.875rem' }}>

@@ -246,7 +246,7 @@ export default function SuscripcionesAdmin() {
                         onChange={(e) => setBusqueda(e.target.value)}
                     />
                 </div>
-                <div style={{ display: 'flex', gap: '0.5rem', overflowX: 'auto', paddingBottom: '4px' }}>
+                <div className="panel-scroll-row">
                     {['Todos', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'].map((dia) => (
                         <button
                             key={dia}
@@ -289,7 +289,7 @@ export default function SuscripcionesAdmin() {
                                 {/* Info */}
                                 <div className="panel-product-body">
                                     <div className="panel-product-head">
-                                        <div>
+                                        <div className="panel-product-info">
                                             <div className="panel-product-name">{sub.clientes?.nombre_completo || 'Desconocido'}</div>
                                             <div className="panel-product-desc" style={{ maxWidth: 'none' }}>
                                                 {sub.clientes?.direccion_entrega || 'Entrega en Granja'}

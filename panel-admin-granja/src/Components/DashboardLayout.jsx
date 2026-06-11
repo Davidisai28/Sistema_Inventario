@@ -112,9 +112,15 @@ export default function DashboardLayout() {
 
     return (
         <div className="panel-root">
+            
+            {/* OVERLAY PARA MÓVIL */}
+            <div 
+                className={`panel-sidebar-overlay ${sidebarOpen ? 'is-active' : ''}`}
+                onClick={() => setSidebarOpen(false)}
+            />
 
             {/* SIDEBAR */}
-            <aside className="panel-sidebar">
+            <aside className={`panel-sidebar ${sidebarOpen ? 'is-open' : ''}`}>
                 <div className="panel-sidebar-brand" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <div style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                         <img src="/logo.png" alt="Logo Buena Yema" style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
@@ -131,6 +137,7 @@ export default function DashboardLayout() {
                             key={item.to}
                             to={item.to}
                             className={`panel-nav-item ${location.pathname === item.to ? 'is-active' : ''}`}
+                            onClick={() => setSidebarOpen(false)}
                         >
                             <span className="panel-nav-icon">{item.icon}</span>
                             {item.label}
@@ -170,6 +177,23 @@ export default function DashboardLayout() {
 
             {/* CONTENIDO PRINCIPAL */}
             <main className="panel-main">
+                
+                {/* HEADER MÓVIL (Solo visible en celular) */}
+                <header className="panel-mobile-header">
+                    <div className="panel-mobile-header-title">BUENA YEMA</div>
+                    <button 
+                        className="panel-mobile-menu-btn"
+                        onClick={() => setSidebarOpen(true)}
+                        aria-label="Abrir menú"
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                </header>
+
                 <Outlet />
             </main>
 

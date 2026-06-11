@@ -188,7 +188,10 @@
 
 /* ---------- Sidebar ---------- */
 .panel-sidebar {
-  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
   width: 15rem;
   flex-shrink: 0;
   flex-direction: column;
@@ -196,11 +199,36 @@
   background-color: var(--color-sidebar);
   color: var(--color-sidebar-foreground);
   padding: 1.25rem;
+  z-index: 50;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+}
+
+.panel-sidebar.is-open {
+  transform: translateX(0);
+}
+
+.panel-sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  display: none;
+}
+
+.panel-sidebar-overlay.is-active {
+  display: block;
 }
 
 @media (min-width: 1024px) {
   .panel-sidebar {
-    display: flex;
+    position: relative;
+    transform: none;
+    height: auto;
+  }
+  .panel-sidebar-overlay {
+    display: none !important;
   }
 }
 
@@ -290,11 +318,43 @@
   justify-content: center;
 }
 
+/* ---------- Header Móvil ---------- */
+.panel-mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: var(--color-card);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.panel-mobile-header-title {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--color-foreground);
+}
+
+.panel-mobile-menu-btn {
+  color: var(--color-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .panel-mobile-header {
+    display: none;
+  }
+}
+
 /* ---------- Main ---------- */
 .panel-main {
   flex: 1;
   min-width: 0;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ---------- Header ---------- */
@@ -390,6 +450,7 @@
   margin-top: 1.5rem;
   display: flex;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .panel-section--list {
@@ -489,6 +550,7 @@
 .panel-search {
   position: relative;
   flex: 1;
+  min-width: 250px;
 }
 
 .panel-search-icon {
@@ -567,6 +629,11 @@
   gap: 0.5rem;
 }
 
+.panel-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
 .panel-product-name {
   font-size: 0.875rem;
   font-weight: 700;
@@ -591,6 +658,7 @@
   font-weight: 700;
   color: var(--color-foreground);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .panel-product-tags {
