@@ -17,14 +17,37 @@ export default function LoginAdmin() {
         setError('');
         setCargando(true);
 
+        const correoLimpio = email.trim();
+
         try {
+            // 1. Verificar si la cuenta está bloqueada
+            const { data: minutosRestantes, error: checkError } = await supabase.rpc('verificar_estado_login', { p_email: correoLimpio });
+            
+            if (checkError) {
+                console.error("Error al verificar estado:", checkError);
+            } else if (minutosRestantes > 0) {
+                throw new Error(`Cuenta bloqueada por seguridad. Intenta de nuevo en ${minutosRestantes} minuto(s).`);
+            }
+
+            // 2. Intentar iniciar sesión con Supabase Auth
             const { data, error: authError } = await supabase.auth.signInWithPassword({
-                email: email.trim(),
+                email: correoLimpio,
                 password,
             });
 
             if (authError) {
                 if (authError.message.includes('Invalid login credentials')) {
+                    // Contraseña incorrecta. Registrar fallo en la BD
+                    const { data: falloData, error: falloError } = await supabase.rpc('registrar_intento_fallido', { p_email: correoLimpio });
+                    
+                    if (!falloError) {
+                        if (falloData === 'BLOQUEADO') {
+                            throw new Error('Has superado los 3 intentos fallidos. Tu cuenta ha sido bloqueada por 15 minutos.');
+                        } else {
+                            throw new Error(`Contraseña incorrecta. Te quedan ${falloData} intento(s) antes de ser bloqueado.`);
+                        }
+                    }
+                    
                     throw new Error('Correo o contraseña incorrectos.');
                 }
                 throw new Error('Error al iniciar sesión. Intenta de nuevo.');
@@ -33,9 +56,13 @@ export default function LoginAdmin() {
             if (!data?.session) {
                 throw new Error('No se pudo crear la sesión. Intenta de nuevo.');
             }
+            
+            // 3. Inicio exitoso -> Limpiar registro de intentos
+            await supabase.rpc('resetear_intentos_login', { p_email: correoLimpio });
+
             // Guardar o borrar el correo en el navegador
             if (recordarme) {
-                localStorage.setItem('granja_admin_email', email.trim());
+                localStorage.setItem('granja_admin_email', correoLimpio);
             } else {
                 localStorage.removeItem('granja_admin_email');
             }
